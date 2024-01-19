@@ -1,0 +1,30 @@
+name: check_syntax
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-syntax:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Konfiguracja Pythona
+        uses: actions/setup-python@v2
+        with:
+          python-version: [3.9, 3.10, 3.11]
+
+      - name: Aktualizacja pip
+        run: |
+          python -m pip install --upgrade pip
+
+      - name: Instalacja flake8
+        run: |
+          python -m pip install flake8
+
+      - name: Wyświetlenie wersji Pythona
+        run: python --version
+
+      - name: Uruchomienie flake8
+        run: flake8 .
